@@ -267,8 +267,8 @@ struct l_dev {
 #    endif /* defined(HASUTMPX) */
 
 extern int errno;
-extern char *optarg;
-extern int optind;
+
+
 
 #    define ACCESSERRFMT "%s: WARNING: access %s: %s\n"
 

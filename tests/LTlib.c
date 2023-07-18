@@ -1033,11 +1033,11 @@ static X2DEV_T x2dev(char *x,   /* hex string */
      */
     for (dev = (X2DEV_T)0; *wx; wx++) {
         if (isdigit((unsigned char)*wx)) {
-            dev = (dev << 4) | (unsigned int)(((int)*wx - (int)'0') & 0xf);
+            dev = (dev << 4) | (unsigned int)(((int)*wx - '0') & 0xf);
             continue;
         }
-        c = (int)tolower((unsigned char)*wx);
-        if ((c >= (int)'a') && (c <= (int)'f')) {
+        c = tolower((unsigned char)*wx);
+        if ((c >= 'a') && (c <= 'f')) {
             dev = (dev << 4) | (unsigned int)((c - 'a' + 10) & 0xf);
             continue;
         }

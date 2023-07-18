@@ -327,7 +327,6 @@ void process_atalk(struct lsof_context *ctx, /* context */
                    int32_t fd)               /* FD */
 {
     Lf->type = LSOF_FILE_APPLETALK;
-    return;
 }
 
 /*

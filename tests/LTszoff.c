@@ -398,11 +398,11 @@ static char *testlsof(int tt,     /* test type -- TYTST_* symbol */
                  */
                 if (*tcp == ' ')
                     continue;
-                if (((int)*tcp < (int)'0') || ((int)*tcp > (int)'9')) {
+                if (((int)*tcp < '0') || ((int)*tcp > '9')) {
                     ti = -1;
                     break;
                 }
-                ti = (ti * 10) + (int)*tcp - (int)'0';
+                ti = (ti * 10) + (int)*tcp - '0';
             }
             if (Fd != ti)
                 break;

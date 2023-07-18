@@ -306,7 +306,7 @@ void gather_proc_info(struct lsof_context *ctx) {
         /*
          * Check for process or command exclusion.
          */
-        if (is_proc_excl(ctx, (int)pid, (int)tai.pbsd.pbi_pgid,
+        if (is_proc_excl(ctx, pid, (int)tai.pbsd.pbi_pgid,
                          (UID_ARG)tai.pbsd.pbi_uid, &pss, &sf)) {
             continue;
         }
@@ -353,7 +353,7 @@ void gather_proc_info(struct lsof_context *ctx) {
          * Caveat: pbi_name can be changed by setprogname(3), while pbi_comm
          * cannot. Should we allow empty pbi_name here?
          */
-        alloc_lproc(ctx, (int)pid, (int)tai.pbsd.pbi_pgid,
+        alloc_lproc(ctx, pid, (int)tai.pbsd.pbi_pgid,
                     (int)tai.pbsd.pbi_ppid, (UID_ARG)tai.pbsd.pbi_uid,
                     (tai.pbsd.pbi_name[0] != '\0') ? tai.pbsd.pbi_name
                                                    : tai.pbsd.pbi_comm,

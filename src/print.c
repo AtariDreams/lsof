@@ -219,7 +219,7 @@ static void fill_portmap(struct lsof_context *ctx) {
          * Save the registration name or number.
          */
         cp = (char *)NULL;
-        if ((r = (struct rpcent *)getrpcbynumber(p->pml_map.pm_prog))) {
+        if ((r = getrpcbynumber(p->pml_map.pm_prog))) {
             if (r->r_name && strlen(r->r_name))
                 cp = r->r_name;
         }
@@ -405,7 +405,7 @@ char *gethostnm(struct lsof_context *ctx, /* context */
                 (void)snpf(hbuf, sizeof(hbuf), "(unknown AF value: %d)", af);
         hn = hbuf;
     } else
-        hn = (char *)he->h_name;
+        hn = he->h_name;
     /*
      * Allocate space for name and copy name to it.
      */

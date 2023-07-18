@@ -64,14 +64,14 @@ static char copyright[] = "@(#) Copyright 2005 Apple Computer, Inc. and Purdue "
 
 static dev_t *ADev = (dev_t *)NULL; /* device numbers besides DevDev found
                                      * inside DDEV_DEVPATH */
-static int ADevA = 0;               /* entries allocated to ADev[] */
-static int ADevU = 0;               /* entries used in ADev[] */
+static size_t ADevA = 0;               /* entries allocated to ADev[] */
+static size_t ADevU = 0;               /* entries used in ADev[] */
 
 /*
  * Local function prototypes
  */
 
-static int rmdupdev(struct lsof_context *ctx, struct l_dev ***dp, int n,
+static size_t rmdupdev(struct lsof_context *ctx, struct l_dev ***dp, size_t n,
                     char *nm);
 static void saveADev(struct lsof_context *ctx, struct stat *s);
 
@@ -87,7 +87,7 @@ void HASSPECDEVD(struct lsof_context *ctx, /* context */
                  char *p,                  /* file path */
                  struct stat *s)           /* stat(2) result for file */
 {
-    int i;
+    size_t i;
 
     switch (s->st_mode & S_IFMT) {
     case S_IFCHR:
@@ -119,7 +119,7 @@ int printdevname(struct lsof_context *ctx, /* context */
 {
     char *cp, *ttl;
     struct l_dev *dp;
-    int i, len;
+    size_t i, len;
     /*
      * See if the device node resides in DDEV_DEVPATH.  If it does, return zero
      * to indicate the vnode path is to be used for the NAME column.
@@ -151,13 +151,13 @@ int printdevname(struct lsof_context *ctx, /* context */
          * A match was found.  Record it as a name column addition.
          */
         ttl = (nty == N_BLK) ? LIKE_BLK_SPEC : LIKE_CHR_SPEC;
-        len = (int)(1 + strlen(ttl) + 1 + strlen(dp->name) + 1);
+        len = 1 + strlen(ttl) + 1 + strlen(dp->name) + 1;
         if (!(cp = (char *)malloc((MALLOC_S)(len + 1)))) {
             (void)fprintf(stderr, "%s: no nma space for: (%s %s)\n", Pn, ttl,
                           dp->name);
             Error(ctx);
         }
-        (void)snpf(cp, len + 1, "(%s %s)", ttl, dp->name);
+        (void)snpf(cp, (int)len + 1, "(%s %s)", ttl, dp->name);
         (void)add_nma(ctx, cp, len);
         (void)free((MALLOC_P *)cp);
     }

@@ -269,7 +269,7 @@ int main(int argc,     /* argument count */
     char *em;                    /* error message pointer */
     int i;                       /* temporary integer */
     int len;                     /* string length */
-    OFFSET_T sz = 0x140000000ll; /* test file size */
+    OFFSET_T sz = 0x140000000LL; /* test file size */
     char szbuf[64];              /* size buffer */
     char *tcp;                   /* temporary character pointer */
     int tofft = 0;               /* 0t offset test result */

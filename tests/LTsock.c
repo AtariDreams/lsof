@@ -348,7 +348,7 @@ int main(int argc,     /* argument count */
     /*
      * Fork a child process to run as the client.
      */
-    switch ((CPid = (pid_t)fork())) {
+    switch ((CPid = fork())) {
     case (pid_t)0:
 
         /*

@@ -33,7 +33,7 @@
 
 #if defined(USE_LIB_READDEV)
 
-static int rmdupdev(struct lsof_context *ctx, struct l_dev ***dp, int n,
+static size_t rmdupdev(struct lsof_context *ctx, struct l_dev ***dp, size_t n,
                     char *nm);
 
 /*
@@ -118,13 +118,13 @@ void readdev(struct lsof_context *ctx,
 #    endif /* defined(HASDCACHE) */
 
     DIR *dfp;
-    int dnamlen;
+    size_t dnamlen;
     struct DIRTYPE *dp;
     char *fp = (char *)NULL;
-    int i = 0;
+    size_t i = 0;
 
 #    if defined(HASBLKDEV)
-    int j = 0;
+    size_t j = 0;
 #    endif /* defined(HASBLKDEV) */
 
     char *path = (char *)NULL;
@@ -153,7 +153,8 @@ void readdev(struct lsof_context *ctx,
     /*
      * Unstack the next /dev or /dev/<subdirectory> directory.
      */
-    while (--Dstkx >= 0) {
+    while (Dstkx) {
+        --Dstkx;
         if (!(dfp = OpenDir(Dstk[Dstkx]))) {
 
 #    if defined(WARNDEVACCESS)
@@ -190,9 +191,9 @@ void readdev(struct lsof_context *ctx,
                  */
 
 #    if defined(HASDNAMLEN)
-            dnamlen = (int)dp->d_namlen;
+            dnamlen = dp->d_namlen;
 #    else  /* !defined(HASDNAMLEN) */
-            dnamlen = (int)strlen(dp->d_name);
+            dnamlen = strlen(dp->d_name);
 #    endif /* defined(HASDNAMLEN) */
 
             if (fp) {
@@ -412,9 +413,9 @@ void rereaddev(struct lsof_context *ctx) {
  * rmdupdev() - remove duplicate (major/minor/inode) devices
  */
 
-static int rmdupdev(struct lsof_context *ctx,
+static size_t rmdupdev(struct lsof_context *ctx,
                     struct l_dev ***dp, /* device table pointers address */
-                    int n,              /* number of pointers */
+                    size_t n,              /* number of pointers */
                     char *nm) /* device table name for error message */
 {
 

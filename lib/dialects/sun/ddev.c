@@ -53,7 +53,7 @@ static int Devx = 0; /* current Devtp[] index */
  */
 
 static void make_devtp(struct lsof_context *ctx, struct stat *s, char *p);
-static int rmdupdev(struct lsof_context *ctx, struct l_dev ***dp, int n,
+static size_t rmdupdev(struct lsof_context *ctx, struct l_dev ***dp, size_t n,
                     int ty);
 
 /*
@@ -1017,14 +1017,14 @@ int vfy_dev(struct lsof_context *ctx, /* context */
  * rmdupdev() - remove duplicate (major/minor/inode) devices
  */
 
-static int rmdupdev(struct lsof_context *ctx, /* context */
+static size_t rmdupdev(struct lsof_context *ctx, /* context */
                     struct l_dev ***dp, /* device table pointers address */
-                    int n,              /* number of pointers */
+                    size_t n,              /* number of pointers */
                     int ty)             /* type: 0 = block, 1 = char */
 {
     struct clone *c, *cp;
     struct l_dev **d;
-    int i, j, k;
+    size_t i, j, k;
     struct pseudo *p, *pp;
 
     for (i = j = 0, d = *dp; i < n;) {

@@ -206,7 +206,7 @@ extern struct mounts *readmnt(struct lsof_context *ctx);
 extern void rereaddev(struct lsof_context *ctx);
 extern char *safepup(unsigned int c, int *cl);
 extern int safestrlen(char *sp, int flags);
-extern void safestrprtn(char *sp, int len, FILE *fs, int flags);
+extern void safestrprtn(char *sp, size_t len, FILE *fs, int flags);
 extern void safestrprt(char *sp, FILE *fs, int flags);
 extern int statsafely(struct lsof_context *ctx, char *path, struct stat *buf);
 extern void stkdir(struct lsof_context *ctx, char *p);

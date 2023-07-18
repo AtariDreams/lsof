@@ -48,7 +48,7 @@ static void prt_ptyinfo(struct lsof_context *ctx, pxinfo_t *pp, int prt_edev,
  */
 
 void add_nma(struct lsof_context *ctx, char *cp, /* string to add */
-             int len)                            /* string length */
+             size_t len)                            /* string length */
 {
     int nl;
     char fd[FDLEN];

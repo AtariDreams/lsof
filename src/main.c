@@ -118,7 +118,7 @@ int main(int argc, char *argv[]) {
      * Make sure umask allows lsof to define its own file permissions.
      */
 
-    if ((MaxFd = (int)GET_MAX_FD()) < 53)
+    if ((MaxFd = GET_MAX_FD()) < 53)
         MaxFd = 53;
 
     closefrom_shim(ctx, 3);
@@ -142,10 +142,10 @@ int main(int argc, char *argv[]) {
      * Common initialization.
      */
     Mypid = getpid();
-    if ((Mygid = (gid_t)getgid()) != getegid())
+    if ((Mygid = getgid()) != getegid())
         Setgid = 1;
     Euid = geteuid();
-    if ((Myuid = (uid_t)getuid()) && !Euid)
+    if ((Myuid = getuid()) && !Euid)
         Setuidroot = 1;
     /*
      * Create option mask.
@@ -615,17 +615,17 @@ int main(int argc, char *argv[]) {
         case 'L':
             Fnlink = (GOp == '+') ? 1 : 0;
             if (!GOv || *GOv == '-' || *GOv == '+') {
-                Nlink = 0l;
+                Nlink = 0L;
                 if (GOv) {
                     GOx1 = GObk[0];
                     GOx2 = GObk[1];
                 }
                 break;
             }
-            for (cp = GOv, l = 0l, n = 0; *cp; cp++) {
+            for (cp = GOv, l = 0L, n = 0; *cp; cp++) {
                 if (!isdigit((unsigned char)*cp))
                     break;
-                l = (l * 10l) + ((long)*cp - (long)'0');
+                l = (l * 10L) + ((long)*cp - (long)'0');
                 n++;
             }
             if (n) {
@@ -637,7 +637,7 @@ int main(int argc, char *argv[]) {
                     Selflags |= SELNLINK;
                 }
             } else
-                Nlink = 0l;
+                Nlink = 0L;
             if (*cp) {
                 GOx1 = GObk[0];
                 GOx2 = GObk[1] + n;

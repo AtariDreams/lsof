@@ -46,7 +46,7 @@ static char copyright[] =
  * Local function prototypes
  */
 
-static int rmdupdev(struct lsof_context *ctx, struct l_dev ***dp, int n,
+static size_t rmdupdev(struct lsof_context *ctx, struct l_dev ***dp, size_t n,
                     char *nm);
 
 #if defined(HASDCACHE) && AIXV >= 4140
@@ -472,9 +472,9 @@ void rereaddev(struct lsof_context *ctx) {
  * rmdupdev() - remove duplicate (major/minor/inode) devices
  */
 
-static int rmdupdev(struct lsof_context *ctx, /* context */
+static size_t rmdupdev(struct lsof_context *ctx, /* context */
                     struct l_dev ***dp, /* device table pointers address */
-                    int n,              /* number of pointers */
+                    size_t n,              /* number of pointers */
                     char *nm) /* device table name for error message */
 {
 
@@ -482,7 +482,7 @@ static int rmdupdev(struct lsof_context *ctx, /* context */
     struct clone *c, *cp;
 #endif /* AIXV>=4140 */
 
-    int i, j, k;
+    size_t i, j, k;
     struct l_dev **p;
 
     for (i = j = 0, p = *dp; i < n;) {

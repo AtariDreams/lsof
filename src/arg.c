@@ -90,12 +90,12 @@ static int ckfd_range(struct lsof_context *ctx, /* context */
             safestrprt(first, stderr, 1);
             return (1);
         }
-        *lo = (*lo * 10) + (int)(*cp - '0');
+        *lo = (*lo * 10) + (*cp - '0');
     }
     for (cp = dash + 1, *hi = 0; *cp && cp < last; cp++) {
         if (!isdigit((unsigned char)*cp))
             goto FD_range_nondigit;
-        *hi = (*hi * 10) + (int)(*cp - '0');
+        *hi = (*hi * 10) + (*cp - '0');
     }
     if (*lo >= *hi) {
         (void)fprintf(stderr, "%s: -d FD range's low >= its high: ", Pn);
@@ -122,7 +122,8 @@ int ck_file_arg(struct lsof_context *ctx, int i, /* first file argument index */
 {
     char *ap, *fnm, *fsnm, *path;
     short err = 0;
-    int fsm, ftype, j, k;
+    int fsm, ftype;
+    size_t j, k;
     MALLOC_S l;
     struct mounts *mp;
     static struct mounts **mmp = (struct mounts **)NULL;
@@ -166,7 +167,7 @@ int ck_file_arg(struct lsof_context *ctx, int i, /* first file argument index */
             if (path != av[i])
                 path[k] = '\0';
             else {
-                if (!(ap = (char *)malloc((MALLOC_S)(k + 1)))) {
+                if (!(ap = (char *)malloc(k + 1))) {
                     (void)fprintf(stderr, "%s: no space for copy of %s\n", Pn,
                                   path);
                     Error(ctx);
@@ -906,7 +907,7 @@ static int enter_fd_lst(struct lsof_context *ctx, /* context */
         for (cp = nm, n = 0; *cp; cp++) {
             if (!isdigit((unsigned char)*cp))
                 break;
-            n = (n * 10) + (int)(*cp - '0');
+            n = (n * 10) + (*cp - '0');
         }
         if (*cp) {
             lo = 1;
@@ -1093,7 +1094,7 @@ int enter_dir(struct lsof_context *ctx, /* context */
         /*
          * Define space for possible addition to the directory path.
          */
-        fpli = (MALLOC_S)(dnl + sl + EDDEFFNL + 1);
+        fpli = (dnl + sl + EDDEFFNL + 1);
         if ((int)fpli > (int)fpl) {
             fpl = fpli;
             if (!fp)
@@ -1142,7 +1143,7 @@ int enter_dir(struct lsof_context *ctx, /* context */
             /*
              * Form the entry's path name.
              */
-            fpli = (MALLOC_S)(dnamlen - (fpl - dnl - sl - 1));
+            fpli = (dnamlen - (fpl - dnl - sl - 1));
             if ((int)fpli > 0) {
                 fpl += fpli;
                 if (!(fp = (char *)realloc(fp, fpl))) {
@@ -2218,7 +2219,7 @@ int enter_uid(struct lsof_context *ctx, /* context */
                     lnml++;
                 }
                 (void)fprintf(stderr, "%s: -u login name > %d characters: ", Pn,
-                              (int)LOGINML);
+                              LOGINML);
                 safestrprtn(st, lnml, stderr, 1);
                 err = j = 1;
                 break;
@@ -2349,7 +2350,7 @@ static char *isIPv4addr(char *hn,         /* host name */
      * Start the first octet assembly, then parse tge remainder of the host
      * name for four octets, separated by dots.
      */
-    ov[0] = (int)(*hn++ - '0');
+    ov[0] = (*hn++ - '0');
     while (*hn && (*hn != ':')) {
         if (*hn == '.') {
 
@@ -2369,9 +2370,9 @@ static char *isIPv4addr(char *hn,         /* host name */
              * Assemble an octet.
              */
             if (ov[ovx] < 0)
-                ov[ovx] = (int)(*hn - '0');
+                ov[ovx] = (*hn - '0');
             else
-                ov[ovx] = (ov[ovx] * 10) + (int)(*hn - '0');
+                ov[ovx] = (ov[ovx] * 10) + (*hn - '0');
         } else {
 
             /*

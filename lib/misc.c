@@ -170,7 +170,7 @@ void childx(struct lsof_context *ctx) {
                 (void)kill(Cpid, CtSigs[sx]);
             (void)signal(SIGALRM, handleint);
             (void)alarm(at);
-            wpid = (pid_t)wait(NULL);
+            wpid = wait(NULL);
             (void)alarm(0);
             (void)signal(SIGALRM, SIG_DFL);
             if (wpid == Cpid)
@@ -203,13 +203,13 @@ int compdev(COMP_P *a1, COMP_P *a2) {
     struct l_dev **p1 = (struct l_dev **)a1;
     struct l_dev **p2 = (struct l_dev **)a2;
 
-    if ((dev_t)((*p1)->rdev) < (dev_t)((*p2)->rdev))
+    if (((*p1)->rdev) < ((*p2)->rdev))
         return (-1);
-    if ((dev_t)((*p1)->rdev) > (dev_t)((*p2)->rdev))
+    if (((*p1)->rdev) > ((*p2)->rdev))
         return (1);
-    if ((INODETYPE)((*p1)->inode) < (INODETYPE)((*p2)->inode))
+    if (((*p1)->inode) < ((*p2)->inode))
         return (-1);
-    if ((INODETYPE)((*p1)->inode) > (INODETYPE)((*p2)->inode))
+    if (((*p1)->inode) > ((*p2)->inode))
         return (1);
     return (strcmp((*p1)->name, (*p2)->name));
 }
@@ -818,7 +818,7 @@ int hashbyname(char *nm, /* pointer to NUL-terminated name */
         if (++j > 7)
             j = 0;
     }
-    return (((int)(i * 31415)) & (mod - 1));
+    return (((i * 31415)) & (mod - 1));
 }
 
 /*
@@ -1423,7 +1423,7 @@ void safestrprt(char *sp,  /* string to print pointer pointer */
 #endif /* defined(HASWIDECHAR) */
 
             if ((*sp != '\\') && isprint((unsigned char)*sp) && *sp != c)
-                putc((int)(*sp & 0xff), fs);
+                putc((*sp & 0xff), fs);
             else {
                 if ((flags & 8) && (*sp == '\n') && !*(sp + 1))
                     break;
@@ -1443,7 +1443,7 @@ void safestrprt(char *sp,  /* string to print pointer pointer */
  */
 
 void safestrprtn(char *sp,  /* string to print pointer pointer */
-                 int len,   /* safe number of characters to
+                 size_t len,   /* safe number of characters to
                              * print */
                  FILE *fs,  /* destination stream -- e.g., stderr
                              * or stdout */
@@ -1461,7 +1461,7 @@ void safestrprtn(char *sp,  /* string to print pointer pointer */
                              */
 {
     char c, *up;
-    int cl, i;
+    size_t cl, i;
 
     if (flags & 4)
         putc('"', fs);
@@ -1469,7 +1469,7 @@ void safestrprtn(char *sp,  /* string to print pointer pointer */
         c = (flags & 2) ? ' ' : '\0';
         for (i = 0; i < len && *sp; sp++) {
             if ((*sp != '\\') && isprint((unsigned char)*sp) && *sp != c) {
-                putc((int)(*sp & 0xff), fs);
+                putc((*sp & 0xff), fs);
                 i++;
             } else {
                 if ((flags & 8) && (*sp == '\n') && !*(sp + 1))

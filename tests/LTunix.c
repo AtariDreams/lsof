@@ -276,11 +276,11 @@ static char *FindUsocks() {
                  */
                 if (*tcp == ' ')
                     continue;
-                if (((int)*tcp < (int)'0') || ((int)*tcp > (int)'9')) {
+                if (((int)*tcp < '0') || ((int)*tcp > '9')) {
                     ti = -1;
                     break;
                 }
-                ti = (ti * 10) + (int)*tcp - (int)'0';
+                ti = (ti * 10) + (int)*tcp - '0';
             }
             for (tj = 0; tj < 2; tj++) {
                 if (ff[tj])

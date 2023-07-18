@@ -174,7 +174,7 @@ int main(int argc,     /* argument count */
               /*
                * Get program name and issue error message.
                */
-    if ((pn = (char *)strrchr(argv[0], '/')))
+    if ((pn = strrchr(argv[0], '/')))
         pn++;
     else
         pn = argv[0];

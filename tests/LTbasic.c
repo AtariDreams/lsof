@@ -325,7 +325,7 @@ static char *tstlsof(char **texec, /* result of the executable test */
                     fdn = -1;
                     break;
                 }
-                fdn = (fdn * 10) + (int)(*tcp - '0');
+                fdn = (fdn * 10) + (*tcp - '0');
             }
             if (!procs && (fdn == -1) && !strcasecmp(fdp->v, "cwd") && typ &&
                 (!strcasecmp(typ->v, "DIR") || !strcasecmp(typ->v, "VDIR"))) {

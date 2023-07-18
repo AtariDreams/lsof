@@ -207,12 +207,12 @@ int main(int argc,     /* argument count */
     /*
      * Compute, display, and measure the success percentage.
      */
-    pct = ((double)fpathct * (double)100.0) / (double)ATTEMPT_CT;
+    pct = ((double)fpathct * 100.0) / (double)ATTEMPT_CT;
     PrtMsg((char *)NULL, Pn);
     (void)printf("%s found: %.2f%%\n", cwd, pct); /* NeXT snpf.c has no
                                                    * %f support */
     MsgStat = 1;
-    if (pct < (double)SUCCESS_THRESH) {
+    if (pct < SUCCESS_THRESH) {
         PrtMsg("ERROR!!!  the find rate was too low.", Pn);
         if (!fpathct) {
             (void)PrtMsg(

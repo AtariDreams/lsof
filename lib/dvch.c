@@ -1263,7 +1263,7 @@ void write_dcache(struct lsof_context *ctx) {
     /*
      * Write the block device section from the contents of BSdev[] and BDevtp[].
      */
-    (void)snpf(buf, sizeof(buf), "block device section: %d\n", BNdev);
+    (void)snpf(buf, sizeof(buf), "block device section: %zu\n", BNdev);
     if (wr2DCfd(ctx, buf, &DCcksum))
         return;
     if (BNdev) {
